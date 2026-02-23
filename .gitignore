@@ -1,0 +1,33 @@
+# Binary executables (The result of 'go build')
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+# If your main file is main.go, the binary is often named after the folder or 'main'
+main
+
+# Logic for Gin / Air (Live Reload)
+# If you use the 'air' package for hot reloading, ignore its temp folder
+tmp/
+
+# Environment Variables (CRITICAL)
+# Never push your DB passwords or API keys
+.env
+.env.local
+*.env
+
+# Dependency Folders
+# While Go uses go.mod, some people use 'vendor/'
+vendor/
+
+# IDE Specific files
+.vscode/
+.idea/
+*.swp
+
+# Testing
+*.test
+*.out
+coverage.txt
