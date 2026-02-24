@@ -9,15 +9,15 @@ import (
 type User struct {
 	gorm.Model
 
-	UserID       int
-	FirstName    string
-	LastName     string
-	Email        string
-	PasswordHash string
-	Role         enums.Role
+	ID           int        `json:"id" gorm:"primaryKey"`
+	FirstName    string     `json:"firstName"`
+	LastName     string     `json:"lastName"`
+	Email        string     `json:"email" gorm:"not null;unique"`
+	PasswordHash string     `json:"password" gorm:"not null"`
+	Role         enums.Role `json:"role" gorm:"not null"`
 
-	District enums.District
-	Province enums.Province
+	District enums.District `json:"district"`
+	Province enums.Province `json:"province"`
 
 	//gorm.Model eke created at updated at thiyna hinda awlk nha
 
