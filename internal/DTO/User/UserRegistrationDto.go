@@ -7,7 +7,6 @@ type RegisterDto struct {
 	LastName  string
 	Email     string
 	Password  string
-	Role      enums.Role
 	District  enums.District
 	Province  enums.Province
 }

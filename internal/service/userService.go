@@ -60,8 +60,10 @@ func (u *UserService) Register(registerDto *user.RegisterDto) error {
 		return err1
 	}
 
+	//methna user ge role ek hdna mechanism ek ghnna
+
 	newUser := models.User{FirstName: registerDto.FirstName, LastName: registerDto.LastName, Email: registerDto.Email,
-		Role: registerDto.Role, District: registerDto.District, Province: registerDto.Province,
+		District: registerDto.District, Province: registerDto.Province,
 		PasswordHash: string(hashedPassword)}
 
 	return u.userRepository.CreateNewUser(&newUser)

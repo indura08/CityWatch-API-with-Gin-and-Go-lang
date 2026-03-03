@@ -2,6 +2,7 @@ package database
 
 import (
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -12,8 +13,7 @@ var DB *gorm.DB
 func ConnectToDB() {
 	var error error
 
-	dsn := "database-connection-string"
-	//methna database connection string eka ganna .env ekn = os.Getenv("DATABASE_URL")
+	dsn := os.Getenv("DATABASE_URL")
 
 	db, error := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
