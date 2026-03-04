@@ -3,6 +3,7 @@ package utils
 import (
 	"citywatch/internal/enums"
 	"os"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -12,6 +13,7 @@ func JwtTokenGenerator(email string, role enums.Role, userId int) string {
 		"email":  email,
 		"userId": userId,
 		"role":   role,
+		"exp":    time.Now().Add(time.Hour * 24).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

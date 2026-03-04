@@ -3,6 +3,7 @@ package service
 import (
 	auth "citywatch/internal/Dto/Auth"
 	user "citywatch/internal/Dto/User"
+	"citywatch/internal/enums"
 	"citywatch/internal/models"
 	"citywatch/internal/repository"
 	"citywatch/internal/utils"
@@ -12,10 +13,10 @@ import (
 )
 
 type UserService struct {
-	userRepository repository.UserRepository
+	userRepository *repository.UserRepository
 }
 
-func NewUserService(repo repository.UserRepository) *UserService {
+func NewUserService(repo *repository.UserRepository) *UserService {
 	return &UserService{userRepository: repo}
 }
 
@@ -44,7 +45,7 @@ func (u *UserService) Login(loginDto *auth.LoginDto) (string, error) {
 }
 
 // meke methods tika implement krnna elaga dwse meka krddi
-func (u *UserService) Register(registerDto *user.RegisterDto) error {
+func (u *UserService) Register(registerDto *user.RegisterDto, role enums.Role) error {
 	existingUser, err := u.userRepository.FindUserByEmail(registerDto.Email)
 
 	if err != nil {
@@ -62,7 +63,7 @@ func (u *UserService) Register(registerDto *user.RegisterDto) error {
 
 	//methna user ge role ek hdna mechanism ek ghnna
 
-	newUser := models.User{FirstName: registerDto.FirstName, LastName: registerDto.LastName, Email: registerDto.Email,
+	newUser := models.User{FirstName: registerDto.FirstName, LastName: registerDto.LastName, Email: registerDto.Email, Role: role,
 		District: registerDto.District, Province: registerDto.Province,
 		PasswordHash: string(hashedPassword)}
 
