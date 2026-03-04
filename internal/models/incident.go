@@ -19,9 +19,9 @@ type Incident struct {
 	IslocationVerified bool                   `json:"isLocationVerified"`
 	ImageUrl           string                 `json:"imageUrl"`
 
-	ReportedByUserId int `json:"reportedByUserID"`
-	ReportedByUser   User
+	ReportedByUserId int  `json:"reportedByUserID"`
+	ReportedByUser   User `gorm:"foreignKey:ReportedByUserId"`
 
-	AssignedtoUserId int `json:"assignedToUserId"`
-	AssignedToUser   User
+	AssignedtoUserId int  `json:"assignedToUserId"`
+	AssignedToUser   User `gorm:"foreignKey:AssignedtoUserId"`
 }
