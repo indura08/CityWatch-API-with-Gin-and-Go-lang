@@ -30,6 +30,7 @@ func AuthorizeRoles(secret string, allowedRoles ...int) gin.HandlerFunc {
 			return
 		}
 
+		//methanin automatically ma token eka expire wlead kiyla check kerenwa , habi error eka  yatin chekc krla error ekke thiynwa nm return kloth withri
 		token, err := jwt.Parse(parts[1], func(token *jwt.Token) (interface{}, error) {
 			return []byte(secret), nil
 		})

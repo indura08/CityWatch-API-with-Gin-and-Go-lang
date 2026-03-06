@@ -3,13 +3,12 @@ package main
 import (
 	"citywatch/internal/database"
 	"citywatch/internal/handler"
-	"citywatch/internal/middleware"
 	"citywatch/internal/models"
 	"citywatch/internal/repository"
+	"citywatch/internal/routes"
 	"citywatch/internal/service"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -39,22 +38,22 @@ func main() {
 	//define other handlers,services and repos if available
 	r := gin.Default()
 
-	authRouters := r.Group("/api/auth")
+	routes.AuthRoutes(r, userHandler)
 
-	{
-		// register routes
-		authRouters.POST("/register/admin", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0), userHandler.AdminRegistration)
-		authRouters.POST("/register/worker", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0, 2), userHandler.WorkerRegister)
-		authRouters.POST("/register/citizen", userHandler.CitizenRegister)
+	// {
+	// 	// register routes
+	// 	authRouters.POST("/register/admin", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0), userHandler.AdminRegistration)
+	// 	authRouters.POST("/register/worker", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0, 2), userHandler.WorkerRegister)
+	// 	authRouters.POST("/register/citizen", userHandler.CitizenRegister)
 
-		//login route
-		authRouters.POST("/login", userHandler.Login)
-		authRouters.GET("/hi/test", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0), func(ctx *gin.Context) {
-			ctx.JSON(201, gin.H{
-				"message": "Helo to ctizen or, admin",
-			})
-		})
-	}
+	// 	//login route
+	// 	authRouters.POST("/login", userHandler.Login)
+	// 	authRouters.GET("/hi/test", middleware.AuthorizeRoles(os.Getenv("SECRET"), 0), func(ctx *gin.Context) {
+	// 		ctx.JSON(201, gin.H{
+	// 			"message": "Helo to ctizen or, admin",
+	// 		})
+	// 	})
+	// }
 
 	//starting the server
 	//this is the simplest way
