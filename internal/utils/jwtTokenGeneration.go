@@ -13,7 +13,7 @@ func JwtTokenGenerator(email string, role enums.Role, userId int) string {
 		"email":  email,
 		"userId": userId,
 		"role":   role,
-		"exp":    time.Now().Add(time.Hour * 24).Unix(),
+		"exp":    time.Now().Add(time.Minute * 1).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
