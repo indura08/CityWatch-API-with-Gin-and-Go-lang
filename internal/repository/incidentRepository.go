@@ -42,7 +42,8 @@ func (i *IncidentRepository) DeleteIncidentByID(incidentId int) error {
 	return nil
 }
 
-func (i *IncidentRepository) GetIncidentById() ([]models.Incident, error) {
+// api methandi resturn krnne slice ekak (array ekk) etkot e welwedi pointer ekk return krnwa kiynne onwat wada code ek complex krnwa kiyna eka , eka hida kelinma api return krnne array ek
+func (i *IncidentRepository) GetIncidents() ([]models.Incident, error) {
 	var incidents []models.Incident
 	result := i.db.Find(&incidents)
 	//methanid wenne gorm ekn pass krna variable eke type ekt adlwa struct eke thiyna name eka lowecase krla thami table name ek hdaganne, meka gorm wal thiyna honda wishesa deyk
@@ -52,4 +53,16 @@ func (i *IncidentRepository) GetIncidentById() ([]models.Incident, error) {
 	}
 
 	return incidents, nil
+}
+
+func (i *IncidentRepository) GetIncidentById(incidentId int) (*models.Incident, error) {
+
+	var currentIncident models.Incident
+
+	result := i.db.First(&currentIncident, incidentId)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &currentIncident, nil
 }
