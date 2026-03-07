@@ -11,7 +11,7 @@ import (
 )
 
 type IncidentHandler struct {
-	incidentService service.IncidentService
+	incidentService *service.IncidentService
 }
 
 func NewIncidentHandler(i *service.IncidentService) *IncidentHandler {
@@ -21,7 +21,7 @@ func NewIncidentHandler(i *service.IncidentService) *IncidentHandler {
 func (h *IncidentHandler) CreateIncident(c *gin.Context) {
 	var incidentDto *Incident.IncidentDto
 
-	if err := c.ShouldBindJSON(&incidentDto); err != nil{
+	if err := c.ShouldBindJSON(&incidentDto); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Invalid request body",
 		})
@@ -29,11 +29,11 @@ func (h *IncidentHandler) CreateIncident(c *gin.Context) {
 	}
 
 	var imagePath string
-	if incidentDto.Image != nil{
+	if incidentDto.Image != nil {
 		fileName := fmt.Sprintf("uploads/%d_%s", time.Now().Unix(), incidentDto.Image.Filename)
 
 		err2 := c.SaveUploadedFile(incidentDto.Image, fileName)
-		if err2 != nil{
+		if err2 != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "Image uplaod fails, check again",
 			})
@@ -44,16 +44,16 @@ func (h *IncidentHandler) CreateIncident(c *gin.Context) {
 	}
 
 	err3 := h.incidentService.CreateIncident(incidentDto, imagePath)
-	if err3 != nil{
+	if err3 != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err3.Error()
+			"error": err3.Error(),
 		})
 		return
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
-		"message": "Incident Created Successfully"
+		"message": "Incident Created Successfully",
 	})
 }
 
-//methn indla hnna thiynne 
+//methn indla hnna thiynne
