@@ -1,4 +1,4 @@
-package auth
+package Auth
 
 type LoginDto struct {
 	Email    string

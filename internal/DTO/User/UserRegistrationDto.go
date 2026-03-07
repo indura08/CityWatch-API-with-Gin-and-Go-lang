@@ -1,4 +1,4 @@
-package user
+package User
 
 import "citywatch/internal/enums"
 

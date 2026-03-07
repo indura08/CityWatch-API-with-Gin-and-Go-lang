@@ -66,3 +66,12 @@ func (i *IncidentRepository) GetIncidentById(incidentId int) (*models.Incident, 
 
 	return &currentIncident, nil
 }
+
+func (i *IncidentRepository) UpdateIncident(incident *models.Incident) error {
+	result := i.db.Save(incident)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
